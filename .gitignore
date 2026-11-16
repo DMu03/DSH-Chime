@@ -1,0 +1,23 @@
+# dependencies
+node_modules/
+.pnpm-store/
+
+# local state / logs
+*.log
+npm-debug.log*
+pnpm-debug.log*
+
+# generated audio caches (never inside the repo, but be explicit)
+wav/
+*.wav
+
+# editor / OS noise
+.DS_Store
+Thumbs.db
+desktop.ini
+.vscode/
+.idea/
+
+# scratch
+tmp/
+*.tmp

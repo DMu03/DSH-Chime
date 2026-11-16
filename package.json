@@ -1,0 +1,70 @@
+{
+  "name": "dsh-done-chime",
+  "version": "1.0.0",
+  "description": "DSH add-on: plays a completion chime when a turn ends (8 timbres), with a sidebar panel for the switch and preview. Official plugin interfaces only; the application itself is never modified.",
+  "type": "module",
+  "main": "lib/index.js",
+  "exports": {
+    ".": "./lib/index.js",
+    "./client": "./lib/client.js",
+    "./synth": "./lib/synth.js",
+    "./recipes": "./lib/recipes.js",
+    "./package.json": "./package.json"
+  },
+  "files": [
+    "lib",
+    "README.md",
+    "README.zh-CN.md",
+    "LICENSE",
+    "LICENSE-MiMo-Code",
+    "NOTICE",
+    "USE_RESTRICTIONS.md",
+    "cordis.patch.yml"
+  ],
+  "scripts": {
+    "build": "node scripts/build.mjs",
+    "check": "node --check lib/index.js && node scripts/build.mjs --check"
+  },
+  "license": "MIT",
+  "author": "DMu03",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/DMu03/DSH-Chime.git"
+  },
+  "keywords": [
+    "deepseek",
+    "deepseek-harness",
+    "dsh",
+    "dsh-plugin",
+    "chime",
+    "notification",
+    "sound"
+  ],
+  "dsh": {
+    "bundle": {
+      "patch": "./cordis.patch.yml"
+    },
+    "client": {
+      "platform": "web",
+      "inject": [
+        "@deepseek-ai/dsh-client-ui-slots",
+        "@deepseek-ai/dsh-client-locale"
+      ],
+      "external": []
+    },
+    "compatibility": {
+      "dsh": ">=0.2.1-rc.1 <0.3.0",
+      "profiles": [
+        "desktop",
+        "web"
+      ]
+    }
+  },
+  "peerDependencies": {
+    "@deepseek-ai/cordis": "^4.0.1"
+  },
+  "engines": {
+    "node": ">=18",
+    "dsh": ">=0.2.1-rc.1 <0.3.0"
+  }
+}

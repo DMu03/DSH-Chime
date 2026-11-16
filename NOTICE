@@ -1,0 +1,73 @@
+dsh-done-chime — NOTICE（来源与许可说明）
+=========================================
+
+本项目不是小米 / MiMo 官方项目，也未获其背书。以下说明哪些代码来自 MiMo、哪些是本项目新增，
+以及上游的版权与使用限制如何适用于本仓库。
+
+
+一、本项目是什么
+
+dsh-done-chime 是一个独立的 DSH（DeepSeek Harness）插件：回合结束时播放完成提示音。
+它不修改 DSH 应用本体，只使用 DSH 的插件官方接口。
+
+
+二、移植 / 派生部分
+
+  lib/recipes.js   提示音配方与动机数据（音色、音名、混合比例）
+  lib/synth.js     Web Audio 提示音合成器
+
+来源：Xiaomi MiMo Desktop 的 task-done chime 功能。MiMo Desktop 以 MiMo Code 为核心引擎。
+
+  上游项目：https://github.com/XiaomiMiMo/MiMo-Code
+  上游许可：MIT
+  上游使用限制：USE_RESTRICTIONS.md（原样收录于本仓库）
+
+
+三、上游版权声明（依 MIT 要求随本仓库保留）
+
+  Copyright (c) 2026 MiMo Code, Xiaomi Corporation
+  Copyright (c) 2025 opencode
+
+MIT 许可全文原样收录于 LICENSE-MiMo-Code。
+
+
+四、上游使用限制及其对衍生物的适用
+
+上游仓库声明：源代码以 MIT 发布，同时使用受《Xiaomi MiMoCode Use Restrictions》约束。
+该文件的约束范围明确包含"any derivatives thereof"（其任何衍生物），而本仓库的提示音部分
+属于 MiMo Desktop 提示音功能的衍生物。
+
+因此：
+
+  - USE_RESTRICTIONS.md 的原样文本收录于本仓库，未作任何删改；
+  - 使用本仓库（作为上游衍生物）同样不得用于该文件列出的用途：违法 / 欺诈 / 恶意用途、
+    侵害第三方权利、伤害或骚扰他人、军事用途、恶意网络活动（含恶意软件、勒索、钓鱼、
+    凭据窃取、未授权访问等）、未经授权收集或披露个人数据、违反第三方平台条款的抓取或自动化，
+    以及在没有适当人工监督的情况下自动执行高风险动作。
+
+
+五、本项目的修改与新增
+
+新增（本项目作者原创，以 MIT 发布，见 LICENSE）：
+
+  lib/wav.js          离线 WAV 渲染器（PCM → 16-bit 立体声 WAV）
+  lib/index.js        host 半：/chime 指令、HTTP 路由、turn/end 触发、播放
+  lib/config.js       ~/.dsh/done-chime/config.json 读写
+  lib/client-entry.js 侧栏面板与 Web Audio 试听（client 半源码）
+  lib/client.js       由 scripts/build.mjs 生成的 client bundle
+  scripts/            build.mjs、selftest-wav.mjs
+  cordis.patch.yml    插件注册与回落默认配置
+
+移植时的改动：
+
+  - 把原本由 MiMo Desktop 渲染端完成的合成参数，改写为"同一套配方、两种渲染器"
+    （浏览器 Web Audio 与 host 侧离线 PCM→WAV），发声参数保持一致；
+  - WAV 渲染器的包络与 Web Audio 的两段 exponentialRamp 对齐（细节见 lib/wav.js 文件头）。
+
+未包含：MiMo Desktop / MiMo Code 的其他任何代码、资源、图标、字体或配置。
+
+
+六、商标
+
+MiMo、MiMo Code、Xiaomi MiMo Desktop 等名称仅用于说明代码来源（指明出处），
+相关商标归小米集团所有。本项目不使用其名称、标识或图标作为自身品牌或宣传素材。

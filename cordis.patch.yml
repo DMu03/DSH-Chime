@@ -1,0 +1,16 @@
+# dsh-done-chime bundle patch
+#
+# 任务完成提示音。只走插件官方接口（commands / webServer / slots），
+# 不修改应用本体，DSH 更新不会覆盖本插件。
+# 运行期配置存放在 ~/.dsh/done-chime/config.json（由 /chime 指令与侧栏面板读写）；
+# 下面 config 是配置文件缺失时的回落默认值。
+
+- insert:
+    - id: dsh-done-chime
+      name: "dsh-done-chime"
+      inject: [commands, webServer]
+      config:
+        enabled: true
+        timbre: kalimba
+        minDurationMs: 60000
+        confirmSound: true
